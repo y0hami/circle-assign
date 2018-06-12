@@ -1,3 +1,5 @@
+![circle-assign logo](https://www.hamistudios.com/assets/img/circle_assign_icon_transparent.png)
+
 # circle-assign
 circle-assign is a simple deep object assign function and can be used in [nodejs](https://nodejs.org/en/) and the browser
 
