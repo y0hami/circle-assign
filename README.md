@@ -3,8 +3,8 @@
 # circle-assign
 circle-assign is a simple deep object assign function and can be used in [nodejs](https://nodejs.org/en/) and the browser
 
-[![CircleCI](https://circleci.com/gh/hammy2899/circle-assign.svg?style=shield)](https://circleci.com/gh/hammy2899/circle-assign)
-![test coverage](./coverage.svg)
+[![Build Status](https://travis-ci.org/hammy2899/circle-assign.svg?branch=master)](https://travis-ci.org/hammy2899/circle-assign)
+[![Coverage Status](https://coveralls.io/repos/github/hammy2899/circle-assign/badge.svg?branch=master)](https://coveralls.io/github/hammy2899/circle-assign?branch=master)
 ![npm version](https://img.shields.io/npm/v/circle-assign.svg)
 ![license](https://img.shields.io/github/license/hammy2899/circle-assign.svg)
 
