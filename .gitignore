@@ -1,6 +1,5 @@
 node_modules
 coverage/
-test-results/
 
 # OS or Editor folders
 .DS_Store
