@@ -5,8 +5,8 @@ circle-assign is a simple deep object assign function and can be used in [nodejs
 
 [![Build Status](https://travis-ci.org/hammy2899/circle-assign.svg?branch=master)](https://travis-ci.org/hammy2899/circle-assign)
 [![Coverage Status](https://coveralls.io/repos/github/hammy2899/circle-assign/badge.svg?branch=master)](https://coveralls.io/github/hammy2899/circle-assign?branch=master)
-![npm version](https://img.shields.io/npm/v/circle-assign.svg)
-![license](https://img.shields.io/github/license/hammy2899/circle-assign.svg)
+[![npm version](https://img.shields.io/npm/v/circle-assign.svg)](https://www.npmjs.com/package/circle-assign)
+[![license](https://img.shields.io/github/license/hammy2899/circle-assign.svg)](https://github.com/hammy2899/circle-assign/blob/master/LICENSE.md)
 
 
 ### Installation  
