@@ -5,6 +5,14 @@
  * @param {...Object} sources The source object(s)
  */
 function circleAssign(target, ...sources) {
+  
+  if(typeof target !== 'object' ||
+    target === undefined ||
+    target === null) {
+    
+    target = {};
+    
+  }
 
   let
     assign  = function (target, source) {
@@ -103,16 +111,22 @@ function circleAssign(target, ...sources) {
       source	= sources[i]
     ;
 
-    // run assign with the source and current target
-    // this will return the deep assigned version of
-    // source with target merged into it
-    // it will then set source to that and if any more
-    // targets are specified it will loop over and repeat
-    // leading to each target overriding the previous
-    // source resulting in the original source overridden
-    // by the array of targets specified
-    target = assign(target, source);
-
+    if(source !== undefined &&
+      source !== null &&
+      typeof source === 'object') {
+  
+      // run assign with the source and current target
+      // this will return the deep assigned version of
+      // source with target merged into it
+      // it will then set source to that and if any more
+      // targets are specified it will loop over and repeat
+      // leading to each target overriding the previous
+      // source resulting in the original source overridden
+      // by the array of targets specified
+      target = assign(target, source);
+      
+    }
+    
   }
 
 
