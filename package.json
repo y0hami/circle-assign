@@ -1,6 +1,6 @@
 {
   "name": "circle-assign",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Simple deep object assign function",
   "main": "index.js",
   "scripts": {
