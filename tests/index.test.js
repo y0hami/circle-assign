@@ -165,14 +165,29 @@ test('a null source should become an empty object', () => {
 });
 
 test('a undefined source should become an empty object', () => {
-  
+
   let
     target  = {
       test: 'something'
     },
     source  = undefined
   ;
-  
+
   expect(circleAssign(target, source)).toEqual({ test: 'something' });
-  
+
+});
+
+test('target should be updated accordingly even when target is null', () => {
+
+  let
+    target  = {
+      test: null
+    },
+    source  = {
+      test: 'something'
+    }
+  ;
+
+  expect(circleAssign(target, source)).toEqual({ test: 'something' });
+
 });
