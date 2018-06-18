@@ -5,13 +5,13 @@
  * @param {...Object} sources The source object(s)
  */
 function circleAssign(target, ...sources) {
-  
+
   if(typeof target !== 'object' ||
     target === undefined ||
     target === null) {
-    
+
     target = {};
-    
+
   }
 
   let
@@ -37,9 +37,17 @@ function circleAssign(target, ...sources) {
         // if the source keys contains the current key from target
         if (sourceKeys.indexOf(key) !== -1) {
 
-          // check if the current target object value is an object
-          if (typeof target[key] === 'object' &&
-            !(target[key] instanceof Array)) {
+          // check if the target is null if it is
+          // set the result as the source, this
+          // should be fine since if the source is
+          // null it isn't overriding and if it
+          // isn't null it is overriding
+          if(target[key] === null) {
+
+            result[key] = source[key];
+
+          } else if (typeof target[key] === 'object' &&
+            !(target[key] instanceof Array)) { // check if the current target object value is an object
 
             // check if the corresponding source value is also an object
             if (typeof source[key] === 'object' &&
@@ -114,7 +122,7 @@ function circleAssign(target, ...sources) {
     if(source !== undefined &&
       source !== null &&
       typeof source === 'object') {
-  
+
       // run assign with the source and current target
       // this will return the deep assigned version of
       // source with target merged into it
@@ -124,9 +132,9 @@ function circleAssign(target, ...sources) {
       // source resulting in the original source overridden
       // by the array of targets specified
       target = assign(target, source);
-      
+
     }
-    
+
   }
 
 
