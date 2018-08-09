@@ -27,6 +27,9 @@
   },
   "homepage": "https://github.com/hammy2899/circle-assign#readme",
   "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "1.7.0",
     "coveralls": "^3.0.1",
     "jest": "^23.1.0",
     "webpack": "^4.12.0",
