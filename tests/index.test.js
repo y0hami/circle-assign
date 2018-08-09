@@ -1,5 +1,5 @@
 const
-  circleAssign = require('./../index')
+  circleAssign = require('./../src/index')
 ;
 
 
