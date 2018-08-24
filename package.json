@@ -2,6 +2,7 @@
   "name": "circle-assign",
   "version": "1.0.6",
   "description": "Simple deep object assign function",
+  "module" : "dist/circle-assign.min.js",
   "main": "src/index.js",
   "scripts": {
     "test": "./node_modules/.bin/jest --coverage --verbose",
