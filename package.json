@@ -3,7 +3,7 @@
   "version": "1.0.10",
   "description": "Simple deep object assign function",
   "main": "src/index.js",
-  "module": "dist/circle-assign.min.js",
+  "module": "dist/circle-assign.js",
   "scripts": {
     "test": "./node_modules/.bin/jest --coverage --verbose",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
