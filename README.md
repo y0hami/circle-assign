@@ -11,7 +11,7 @@ circle-assign is a simple deep object assign function and can be used in [nodejs
 
 ### Installation  
 ```  
-$ npm install --save circle-assign  
+$ npm install --save circle-assign
 ```  
 
 ### Syntax
@@ -21,10 +21,26 @@ circleAssign(target, ...sources)
 
 ### Usage
 
+#### NodeJS
 ```javascript
 const circleAssign = require('circle-assign');
+```
 
-let source = {
+#### Browser (ES6)
+```javascript
+import circleAssign from 'circle-assign';
+```
+
+#### Browser (CDN)
+```html
+<script
+  type="application/javascript"
+  src="https://cdn.jsdelivr.net/npm/circle-assign@2.0.0/dist/circle-assign.min.js"
+/>
+```
+
+```javascript
+const a = {
   language: 'javascript',
   features: {
     recursive: true,
@@ -32,7 +48,7 @@ let source = {
   }
 };
 
-let target = {
+const b = {
   language: 'JavaScript',
   opensource: true,
   features: {
@@ -41,7 +57,13 @@ let target = {
   }
 };
 
-console.log(circleAssign(source, target));
+const c = {
+  coolFunc: () => {
+    console.log('Much wow');
+  }
+};
+
+console.log(circleAssign(a, b, c));
 ```
 
 Output
@@ -53,6 +75,9 @@ Output
     recursive: true,
     size: "~1.3kb",
     canMergeFunctions: true
+  },
+  coolFunc: () => {
+    console.log('Much wow');
   }
 }
 ```
