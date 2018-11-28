@@ -1,193 +1,196 @@
-const
-  circleAssign = require('./../src/index')
-;
+import { isObj, mergeObject } from '../src/internals';
+import merge from '../src/merge';
 
+describe('internals', () => {
+  describe('isObj', () => {
+    test('isObj should return false for `"string"`', () => {
+      expect(isObj('string')).toBe(false);
+    });
 
-test('requiring the module should return be a function', () => {
+    test('isObj should return false for `1`', () => {
+      expect(isObj(1)).toBe(false);
+    });
 
-  expect(typeof circleAssign).toBe('function');
+    test('isObj should return false for `[1, 2, 3]`', () => {
+      expect(isObj([1, 2, 3])).toBe(false);
+    });
 
+    test('isObj should return false for `() => {}`', () => {
+      expect(isObj(() => {})).toBe(false);
+    });
+
+    test('isObj should return false for `null`', () => {
+      expect(isObj(null)).toBe(false);
+    });
+
+    test('isObj should return false for `undefined`', () => {
+      expect(isObj(undefined)).toBe(false);
+    });
+
+    test('isObj should return false for `NaN`', () => {
+      expect(isObj(NaN)).toBe(false);
+    });
+
+    test('isObj should return true for `{}`', () => {
+      expect(isObj({})).toBe(true);
+    });
+
+    test('isObj should return true for `Object.create({})`', () => {
+      expect(isObj(Object.create({}))).toBe(true);
+    });
+  });
+
+  describe('mergeObject', () => {
+    test('mergeObject should return an object type', () => {
+      expect(typeof mergeObject(undefined, undefined)).toBe('object');
+    });
+
+    test('mergeObject should return an empty object when no params are provided', () => {
+      expect(typeof mergeObject()).toBe('object');
+    });
+
+    test('mergeObject should return an empty object when only a target is provided', () => {
+      expect(typeof mergeObject({})).toBe('object');
+    });
+
+    test('mergeObject should return an empty object when none object arguments are provided', () => {
+      expect(typeof mergeObject(1, 'test')).toBe('object');
+    });
+
+    test('mergeObject should return the target object when no source is provided', () => {
+      expect(mergeObject({ test: 'test' }).test).toBe('test');
+    });
+
+    test('mergeObject should override all values with the ones in the source', () => {
+      const a = {
+        test: 'test',
+        bool: false,
+      };
+
+      const b = {
+        test: 'testing',
+        bool: true,
+      };
+
+      const merged = mergeObject(a, b);
+
+      expect(merged.test === 'testing' && merged.bool === true).toBe(true);
+    });
+
+    test('mergeObject should add new values from source to the result', () => {
+      const a = {
+        test: 'test',
+      };
+
+      const b = {
+        new: true,
+      };
+
+      const merged = mergeObject(a, b);
+
+      expect(merged.new).toBe(true);
+    });
+
+    test('mergeObject should override values in target with objects from source', () => {
+      const a = {
+        test: 'test',
+      };
+
+      const b = {
+        test: {
+          override: true,
+        },
+      };
+
+      const merged = mergeObject(a, b);
+
+      expect(merged.test.override).toBe(true);
+    });
+
+    test('mergeObject should override values within objects in the target', () => {
+      const a = {
+        test: {
+          override: false,
+        },
+      };
+
+      const b = {
+        test: {
+          override: true,
+        },
+      };
+
+      const merged = mergeObject(a, b);
+
+      expect(merged.test.override).toBe(true);
+    });
+
+    test('mergeObject should override null values with the source value', () => {
+      const a = {
+        test: null,
+      };
+
+      const b = {
+        test: true,
+      };
+
+      const merged = mergeObject(a, b);
+
+      expect(merged.test).toBe(true);
+    });
+
+    test('mergeObject should objects with new values from source', () => {
+      const a = {
+        test: {
+          override: true,
+        },
+      };
+
+      const b = {
+        test: true,
+      };
+
+      const merged = mergeObject(a, b);
+
+      expect(merged.test).toBe(true);
+    });
+  });
 });
 
-test('values should get overridden if the same key is specified in the target', () => {
+describe('merge', () => {
+  test('merge should return an object type', () => {
+    expect(typeof merge(undefined, undefined)).toBe('object');
+  });
 
-  let
-    target  = {
-      test    : 'Text'
-    },
-    source  = {
-      test    : false
-    }
-  ;
+  test('merge should return an empty object when no params are provided', () => {
+    expect(typeof merge()).toBe('object');
+  });
 
-  expect(circleAssign(target, source)).toEqual({ test: false });
+  test('merge should return an empty object when only a target is provided', () => {
+    expect(typeof merge({})).toBe('object');
+  });
 
-});
+  test('merge should return an empty object when none object arguments are provided', () => {
+    expect(typeof merge(1, 'test')).toBe('object');
+  });
 
-test('values should get overridden recursively if the same key is specified in the target', () => {
+  test('merge should return the target object when no source is provided', () => {
+    expect(merge({ test: 'test' }).test).toBe('test');
+  });
 
-  let
-    target  = {
-      test    : {
-        change  : true
-      }
-    },
-    source  = {
-      test    : {
-        change  : false
-      }
-    }
-  ;
+  test('merge should merge all sources provided', () => {
+    const a = {
+      test: 1,
+    };
 
-  expect(circleAssign(target, source)).toEqual({ test: { change: false } });
+    const b = {
+      test: 2,
+    };
 
-});
+    const c = {
+      test: 3,
+    };
 
-test('multiple targets should override with the last target taking highest priority', () => {
-
-  let
-    target  = {
-      test    : {
-        change  : true
-      }
-    },
-    source  = {
-      test    : {
-        change  : false
-      }
-    },
-    source2 = {
-      test    : {
-        change  : 'CHANGE'
-      }
-    }
-  ;
-
-  expect(circleAssign(target, source, source2)).toEqual({ test: { change: 'CHANGE' } });
-
-});
-
-test('specifying a new key should add it to the target', () => {
-
-  let
-    target  = {
-      test    : 'Text'
-    },
-    source  = {
-      new     : true
-    }
-  ;
-
-  expect(circleAssign(target, source)).toEqual({ test: 'Text', new: true });
-
-});
-
-test('specifying a none object type on an object key should override it with the new value', () => {
-  
-  let
-    target  = {
-      test    : {
-        text    : 'something'
-      }
-    },
-    source  = {
-      test    : 'something'
-    }
-  ;
-  
-  expect(circleAssign(target, source)).toEqual({ test: 'something' });
-  
-});
-
-test('a none object target should become an empty object', () => {
-  
-  let
-    target  = 'not an object',
-    source  = {
-      test    : 'something'
-    }
-  ;
-  
-  expect(circleAssign(target, source)).toEqual({ test: 'something' });
-  
-});
-
-test('a null target should become an empty object', () => {
-  
-  let
-    target  = null,
-    source  = {
-      test    : 'something'
-    }
-  ;
-  
-  expect(circleAssign(target, source)).toEqual({ test: 'something' });
-  
-});
-
-test('a undefined target should become an empty object', () => {
-  
-  let
-    target  = null,
-    source  = {
-      test    : 'something'
-    }
-  ;
-  
-  expect(circleAssign(target, source)).toEqual({ test: 'something' });
-  
-});
-
-test('a none object source should become an empty object', () => {
-  
-  let
-    target  = {
-      test: 'something'
-    },
-    source  = 'not an object'
-  ;
-  
-  expect(circleAssign(target, source)).toEqual({ test: 'something' });
-  
-});
-
-test('a null source should become an empty object', () => {
-  
-  let
-    target  = {
-      test: 'something'
-    },
-    source  = null
-  ;
-  
-  expect(circleAssign(target, source)).toEqual({ test: 'something' });
-  
-});
-
-test('a undefined source should become an empty object', () => {
-
-  let
-    target  = {
-      test: 'something'
-    },
-    source  = undefined
-  ;
-
-  expect(circleAssign(target, source)).toEqual({ test: 'something' });
-
-});
-
-test('target should be updated accordingly even when target is null', () => {
-
-  let
-    target  = {
-      test: null
-    },
-    source  = {
-      test: 'something'
-    }
-  ;
-
-  expect(circleAssign(target, source)).toEqual({ test: 'something' });
-
+    expect(merge(a, b, c).test).toBe(3);
+  });
 });
